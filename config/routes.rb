@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   
-namespace :api do
-  namespace :v1 do
-    resources :users
-    resources :positions
-    resources :projects
-    resources :tasks
+  namespace :api do
+    namespace :v1 do
+      resources :users
+      resources :positions
+      resources :projects
+      resources :tasks
+      resources :comments
   end
 end
   
