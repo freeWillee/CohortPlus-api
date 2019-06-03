@@ -5,12 +5,12 @@ class Api::V1::PositionsController < ApplicationController
   def index
     @positions = Position.all
 
-    render json: @positions
+    render json: PositionSerializer.new(Position.all)
   end
 
   # GET /positions/1
   def show
-    render json: @position
+    render json: PositionSerializer.new(@position)
   end
 
   # POST /positions
@@ -18,7 +18,7 @@ class Api::V1::PositionsController < ApplicationController
     @position = Position.new(position_params)
 
     if @position.save
-      render json: @position, status: :created, location: @position
+      render json: PositionSerializer.new(@position), status: :created, location: @position
     else
       render json: @position.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::PositionsController < ApplicationController
   # PATCH/PUT /positions/1
   def update
     if @position.update(position_params)
-      render json: @position
+      render json: PositionSerializer.new(@position)
     else
       render json: @position.errors, status: :unprocessable_entity
     end
