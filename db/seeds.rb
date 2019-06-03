@@ -36,3 +36,11 @@ granttask1.save
 granttask2.save
 granttask3.save
 granttask4.save
+
+granttask1.comments.create(title: "ideas?", content: "not sure where to start with this one", user_id: will.id)
+
+granttask2.comments.create(title: "CPL", content: "good source for research - update findings please", user_id: karen.id)
+
+granttask2.comments.create(title: "???", content: "blabber", user_id: sebby.id)
+
+grant.comments.create(title: "Brainstorming session", content: "must meet today", user_id: karen.id)
