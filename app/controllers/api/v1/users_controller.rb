@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  wrap_parameters format: [:json], include: [:password,:username, :password, :first_name, :last_name, :email, :profile_url, :admin]
 
   # GET /users
   def index
@@ -15,9 +16,10 @@ class Api::V1::UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
+    @user.position = Position.find_by(title: params[:position])
+    
     if @user.save
-      render json: UserSerializer.new(@user), status: :created, location: @user
+      render json: UserSerializer.new(@user), status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -45,7 +47,7 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :password_digest, :first_name, :last_name, :email, :title, :admin)
+      params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :profile_url, :admin, :position_id)
     end
 
 
