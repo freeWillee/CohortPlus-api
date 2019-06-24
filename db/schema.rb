@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_202110) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "content"
-    t.integer "percent_complete"
+    t.string "status"
     t.date "due_date"
     t.integer "user_id"
     t.integer "project_id"

@@ -18,6 +18,9 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
     @user.position = Position.find_by(title: params[:position])
     
+    # Apply default URL path to profile pic if none provided
+    @user.checkProfilePic(user_params[:profile_url])
+    
     if @user.save
       render json: UserSerializer.new(@user), status: :created
     else
@@ -26,7 +29,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1
-  def update
+  def update    
     if @user.update(user_params)
       render json: UserSerializer.new(@user)
     else
@@ -47,7 +50,9 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :profile_url, :admin, :position_id)
+      params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :profile_url, :admin, :position_id).delete_if do |key, val|
+        val == ""
+      end
     end
 
 

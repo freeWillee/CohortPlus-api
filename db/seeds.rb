@@ -10,13 +10,13 @@ opsAnalyst = Position.create(title: "Ops Analyst")
 marketer = Position.create(title: "Marketer")
 teamLead = Position.create(title: "Team Lead")
 
-will = opsAnalyst.users.create(username: "willee", first_name: "Will", last_name: "Lee", password: "password")
+will = opsAnalyst.users.create(username: "willee", first_name: "Will", last_name: "Lee", password: "password", email: "will@mail.com")
 
-karen = teamLead.users.create(username: "ktang", first_name: "Karen", last_name: "Tang", password: "password")
+karen = teamLead.users.create(username: "ktang", first_name: "Karen", last_name: "Tang", password: "password", email: "karen@mail.com")
 
-sebby = marketer.users.create(username: "sebby", first_name: "Sebastian", last_name: "Lee", password: "password")
+sebby = marketer.users.create(username: "sebby", first_name: "Sebastian", last_name: "Lee", password: "password", email: "seb@mail.com")
 
-dan = marketer.users.create(username: "danny", first_name: "Dan", last_name: "TheMan", password: "password")
+dan = marketer.users.create(username: "danny", first_name: "Dan", last_name: "TheMan", password: "password", email: "dan@mail.com")
 
 will.save
 karen.save

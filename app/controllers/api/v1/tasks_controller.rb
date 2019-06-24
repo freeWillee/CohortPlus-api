@@ -1,5 +1,6 @@
 class Api::V1::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
+  wrap_parameters format: [:json], include: [:title, :content, :status, :due_date, :user_id, :project_id]
 
   # GET /tasks
   def index
@@ -13,10 +14,13 @@ class Api::V1::TasksController < ApplicationController
 
   # POST /tasks
   def create
+
     @task = Task.new(task_params)
+    @task.user = User.find_by(username: params[:username])
+    @task.project = Project.find_by(title: params[:project])
 
     if @task.save
-      render json: TaskSerializer.new(@task), status: :created, location: @task
+      render json: TaskSerializer.new(@task), status: :created
     else
       render json: @task.errors, status: :unprocessable_entity
     end
@@ -44,7 +48,7 @@ class Api::V1::TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:title, :content, :percent_complete, :due_date, :user_id, :project_id)
+      params.require(:task).permit(:title, :content, :status, :due_date, :user_id, :project_id)
     end
 
     # def serializer
