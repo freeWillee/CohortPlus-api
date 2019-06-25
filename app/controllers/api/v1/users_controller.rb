@@ -30,7 +30,7 @@ class Api::V1::UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update    
-    if @user.update(user_params)
+    if @user.update(edit_user_params)
       render json: UserSerializer.new(@user)
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -50,9 +50,11 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :profile_url, :admin, :position_id).delete_if do |key, val|
-        val == ""
-      end
+      updatedParams = params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :profile_url, :admin, :position_id).delete_if {|key, val| key == "profile_url" && val==""}
+    end
+
+    def edit_user_params
+      updatedParams = params.require(:user).permit(:username, :password, :first_name, :last_name, :email, :profile_url, :admin, :position_id).delete_if {|key, val| val==""}
     end
 
 
