@@ -4,6 +4,6 @@ class UserSerializer
   attributes :username, :first_name, :last_name, :email, :admin, :profile_url
 
   has_many :tasks
-  has_many :projects, through: :tasks
+  has_many :projects
   belongs_to :position
 end
