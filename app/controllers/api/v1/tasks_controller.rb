@@ -4,7 +4,14 @@ class Api::V1::TasksController < ApplicationController
 
   # GET /tasks
   def index
-    render json: TaskSerializer.new(Task.all)
+    if logged_in?
+      @tasks = current_user.tasks
+      render json: TaskSerializer.new(@tasks)
+    else
+      render json: {
+        error: "You need to be logged in to view this"
+      }
+    end
   end
 
   # GET /tasks/1
