@@ -5,6 +5,9 @@ class User < ApplicationRecord
     has_many :projects, through: :tasks
     belongs_to :position
 
+    validates :position, :email, :username, presence: true
+    validates :username, uniqueness: true
+
     def checkProfilePic(profileURLParams)
         if profileURLParams = "" 
             self.profile_url = "https://api.adorable.io/avatars/285/sebby.png"

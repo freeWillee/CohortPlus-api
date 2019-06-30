@@ -3,5 +3,5 @@ class TaskSerializer
   
   attributes :title, :content, :status, :due_date, :user_id, :project_id
 
-  has_many :comments
+  has_many :comments, serializer: CommentSerializer
 end
