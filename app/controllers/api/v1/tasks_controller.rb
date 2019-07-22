@@ -55,7 +55,7 @@ class Api::V1::TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:title, :content, :status, :due_date, :user_id, :project_id)
+      params.require(:task).permit(:title, :content, :status, :due_date, :user_id, :project_id).delete_if {|key, val| val==""}
     end
 
     # def serializer
