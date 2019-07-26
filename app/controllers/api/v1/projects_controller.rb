@@ -44,7 +44,7 @@ class Api::V1::ProjectsController < ApplicationController
   # DELETE /projects/1
   def destroy
     @project.destroy
-    Task.where(project_id: 1).destroy_all
+    Task.where(project_id: @project.id).destroy_all
   end
 
   private
