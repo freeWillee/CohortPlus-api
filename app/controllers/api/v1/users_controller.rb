@@ -48,6 +48,7 @@ class Api::V1::UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    Task.where(user_id: @user.id).destroy_all
   end
 
   private
